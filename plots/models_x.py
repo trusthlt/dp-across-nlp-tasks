@@ -49,11 +49,10 @@ start = 0
 end = 5
 
 for model_n in range(num_models):
-    print(X[start:end+1])
     avgs.append(np.median(X[start:end+1]))
     start += num_tasks
     end += num_tasks
-print(avgs)
+
 for ax in axes:  
     plt.setp(ax, xticks=avgs, xticklabels=models)
 
