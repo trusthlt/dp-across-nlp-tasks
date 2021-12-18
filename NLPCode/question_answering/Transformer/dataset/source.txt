@@ -1,0 +1,4 @@
+Dataset available on: https://worksheets.codalab.org/worksheets/0x62eefc3e64e04430a1a24785a9293fff/
+To get util_squad.py and util_squad_evalute.py:
+!wget 'https://raw.githubusercontent.com/nlpyang/pytorch-transformers/master/examples/utils_squad.py'
+!wget 'https://raw.githubusercontent.com/nlpyang/pytorch-transformers/master/examples/utils_squad_evaluate.py'

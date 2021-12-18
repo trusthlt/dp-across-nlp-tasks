@@ -1,0 +1,2 @@
+The base for the Transformer code and the parsing of the dataset was taken from here:
+https://www.analyticsvidhya.com/blog/2021/05/bert-for-natural-language-inference-simplified-in-pytorch/
