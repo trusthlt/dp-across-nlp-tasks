@@ -1,37 +1,15 @@
 # One size does not fit all: Investigating strategies for differentially-private learning across NLP tasks
 
-Companion code to our arXiv preprint.
-
-Pre-print available at: https://arxiv.org/abs/2112.08159
-
-Please use the following citation
-
-```plain
-@journal{Senge.et.al.2021.arXiv,
-    title = {{One size does not fit all: Investigating strategies
-              for differentially-private learning across NLP tasks}},
-    author = {Senge, Manuel and Igamberdiev, Timour and Habernal, Ivan},
-    journal = {arXiv preprint},
-    year = {2021},
-    url = {https://arxiv.org/abs/2112.08159},
-}
-```
-
 > **Abstract** Preserving privacy in training modern NLP models comes at a cost. We know that stricter privacy guarantees in differentially-private stochastic gradient descent (DP-SGD) generally degrade model performance. However, previous research on the efficiency of DP-SGD in NLP is inconclusive or even counter-intuitive. In this short paper, we provide a thorough analysis of different privacy preserving strategies on seven downstream datasets in five different `typical' NLP tasks with varying complexity using modern neural models. We show that unlike standard non-private approaches to solving NLP tasks, where bigger is usually better, privacy-preserving strategies do not exhibit a winning pattern, and each task and privacy regime requires a special treatment to achieve adequate performance.
 
-**Contact person**: Ivan Habernal, ivan.habernal@tu-darmstadt.de. https://www.trusthlt.org
-
 *This repository contains experimental software and is published for the sole purpose of giving additional background details on the publication.*
-
-
 
 ## Structure of the master repository
 This repository consists of 7 root folders. 5 of these folders are the assessed tasks. The folder 'privacy_computation' contains two python files to calculate the privacy budged with Opacus or Tensorflow. Opacus can be used to see how much privacy is used during the experiments. Tensorflow can be used to find the correct noise-multiplier and alpha, to reach a certain target epsilon.
 
-In the folder 'example_run_script' two subfolders can be found. Each subfolder contains two Python scripts that generate bash files for the UKP or Lichtenberg cluster. Additionally, each file contains one example script that can be executed by slurm via sbatch. These scripts can be changed to start different tasks with different hyperparameters. 
+In the folder 'example_run_script' two subfolders can be found. Each subfolder contains two Python scripts that generate bash files for two different clusters. Additionally, each file contains one example script that can be executed by slurm via sbatch. These scripts can be changed to start different tasks with different hyperparameters. 
 
-Each directory named after a task contains a folder called 'LSTM' and 
-'Transformer'. In these folders, all model-specific code can be found, along with the training and evaluation code. The python files 'utils' and 'tuning_structs' contain general classes and structs used for more readable code, as well as methods used for both architectures.
+Each directory named after a task contains a folder called 'LSTM' and 'Transformer'. In these folders, all model-specific code can be found, along with the training and evaluation code. The python files 'utils' and 'tuning_structs' contain general classes and structs used for more readable code, as well as methods used for both architectures.
 
 A list of all used libraries and their versions can be found in the root file used_libraries.txt
 
