@@ -47,11 +47,16 @@ def preprocessing(EP, device):
     # Fields will help to map the column with the torchtext Field.
     fields = [('label', LABEL), ('sequence', TEXT), ('attention_mask', ATTENTION), ('token_type', TTYPE)]
 
+    if EP.use_BERT:
+        post_fix=""
+    else:
+        post_fix = "_distil"
+        
     train_data, valid_data, test_data = data.TabularDataset.splits(
                                         path = f'{EP.dataset_dir}snli_1.0',
-                                        train = f'{EP.dataset_dir}snli_1.0_train.csv',
-                                        validation = f'{EP.dataset_dir}snli_1.0_dev.csv',
-                                        test = f'{EP.dataset_dir}snli_1.0_test.csv',
+                                        train = f'{EP.dataset_dir}snli_1.0_train{post_fix}.csv',
+                                        validation = f'{EP.dataset_dir}snli_1.0_dev{post_fix}.csv',
+                                        test = f'{EP.dataset_dir}snli_1.0_test{post_fix}.csv',
                                         format = 'csv',
                                         fields = fields,
                                         skip_header = True)
@@ -183,7 +188,4 @@ def natural_language_inference(EP):
     f.close()
 
 def main(EP):
-    natural_language_inference(EP)
-
-#if __name__ == "__main__":
-    
+    natural_language_inference(EP)    

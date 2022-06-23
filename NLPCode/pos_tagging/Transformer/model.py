@@ -11,8 +11,10 @@ class BERTPoSTagger(nn.Module):
         super().__init__()
         self.trainable_layers = nn.ModuleList([]) # for the privacy engine
         self.use_rnn = EP.use_rnn
-        bert = BertModel.from_pretrained('bert-base-uncased')
-        self.bert = bert
+        if EP.use_BERT:
+            self.bert = BertModel.from_pretrained('bert-base-uncased')
+        else:
+            self.bert = AutoModel.from_pretrained("microsoft/xtremedistil-l6-h384-uncased")
         embedding_dim = bert.config.to_dict()['hidden_size']
 
 

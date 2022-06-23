@@ -3,13 +3,17 @@ import torch.nn as nn
 from pytorch_transformers import BertForQuestionAnswering
 from tuning_structs import TrainingBERT
 from opacus.layers import DPLSTM
+from transformers import AutoModelForQuestionAnswering
 print_layers = False
 
 class BERTQAModel(nn.Module):
     def __init__(self, EP):
         super().__init__()
-        self.bertQA = BertForQuestionAnswering.from_pretrained(EP.bert_model_type)
-        print("numlabels=", self.bertQA.num_labels)
+                if EP.use_BERT:
+            self.bertQA = BertForQuestionAnswering.from_pretrained(EP.bert_model_type)
+        else:
+            self.bertQA = AutoModelForQuestionAnswering.from_pretrained(EP.bert_model_type)
+            
         self.bert = self.bertQA.bert # for finetuning only freez/unfreez bert of bert QA
         self.trainable_layers = nn.ModuleList([])
         self.use_rnn = EP.use_rnn

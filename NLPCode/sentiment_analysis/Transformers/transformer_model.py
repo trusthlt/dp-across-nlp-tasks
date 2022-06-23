@@ -6,10 +6,14 @@ import pdb
 
 print_layers = False
 class BERTGRUSentiment(nn.Module):
-    def __init__(self, bert, hidden_dim, output_dim, n_layers, bidirectional, dropout, tuning_dict: Tuning, use_rnn):
+    def __init__(self, bert, hidden_dim, output_dim, n_layers, bidirectional, dropout, tuning_dict: Tuning, use_rnn, use_BERT):
         super().__init__()
 
-        self.bert = bert
+        if use_BERT:
+            self.bert = bert
+        else:
+            self.bert = AutoModel.from_pretrained("microsoft/xtremedistil-l6-h384-uncased")
+
         self.embedding_dim = bert.config.to_dict()['hidden_size']
         self.use_rnn = use_rnn
         self.trainable_layers = nn.ModuleList([]) # for the privacy engine

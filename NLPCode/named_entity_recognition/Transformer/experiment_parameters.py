@@ -84,6 +84,17 @@ class ExperimentalParametersTransformers:
         # set dataset
         indx = args.index("--conll")
         self.use_conll = bool(int(args[indx + 1]))
+
+        # choose model
+        indx = args.index("--BERT")
+        self.use_BERT = bool(int(args[indx + 1]))
+
+        if self.use_BERT:
+            # bert model
+            self.bert_model_type = 'bert-base-cased'
+        else:
+            # bert model
+            self.bert_model_type = 'microsoft/xtremedistil-l6-h384-uncased'
        
 
         # Constant paramters

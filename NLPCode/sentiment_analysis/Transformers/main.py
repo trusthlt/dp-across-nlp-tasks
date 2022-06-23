@@ -16,6 +16,7 @@ from opacus import PrivacyEngine
 from tuning_structs import Privacy, TrainingBERT, Tuning
 import numpy as np
 from sklearn.metrics import precision_recall_fscore_support
+from transformers import AutoTokenizer
 
 
 torch.backends.cudnn.deterministic = True
@@ -59,9 +60,12 @@ def sentiment_analysis(EP, LABEL, train_data, test_data, SEED):
     print("---Starting Data Preprocessing---")
     device, train_iterator, valid_iterator, test_iterator, sample_rate = data_preprocessing(EP, LABEL, train_data, test_data, SEED)
     print("---Create Model---")
-    bert = BertModel.from_pretrained(EP.bert_model_type)
+    if EP.use_BERT:
+        tokenizer = BertTokenizer.from_pretrained(EP.bert_model_type)
+    else:
+        tokenizer = AutoTokenizer.from_pretrained("microsoft/xtremedistil-l6-h384-uncased")
     
-    model = BERTGRUSentiment(bert, EP.HIDDEN_DIM, EP.OUTPUT_DIM, EP.N_LAYERS, EP.BIDIRECTIONAL, EP.DROPOUT, EP.tuning, EP.use_rnn)
+    model = BERTGRUSentiment(bert, EP.HIDDEN_DIM, EP.OUTPUT_DIM, EP.N_LAYERS, EP.BIDIRECTIONAL, EP.DROPOUT, EP.tuning, EP.use_rnn, EP.use_BERT)
     model.train()
     model = model.to(device)
 
