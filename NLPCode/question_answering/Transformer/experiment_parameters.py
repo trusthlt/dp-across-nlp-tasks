@@ -25,8 +25,15 @@ The argument value must be directly behind the name and contain no spaces (also 
 
 class ExperimentalParametersTransformers:
     def __init__(self):
-         # bert model
-        self.bert_model_type = 'bert-base-uncased'
+        # BERT or xtreemdistil BERT
+        indx = args.index("--BERT")
+        self.use_BERT = bool(int(args[indx + 1]))
+        # bert model
+        if self.use_BERT:
+            self.bert_model_type = 'bert-base-uncased'
+        else:
+            self.bert_model_type = "microsoft/xtremedistil-l6-h384-uncased"
+            
         # get param list from function call
         args = sys.argv[1:]
         # seeds

@@ -7,7 +7,11 @@ import torch
 import numpy as np
 
 def prep_data(device, EP):
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    if EP.use_BERT:
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    else:
+        tokenizer = AutoTokenizer.from_pretrained("microsoft/xtremedistil-l6-h384-uncased")
+        
     train_data = POSDataset(f'{EP.dataset_dir}/{EP.dataset_choice}_train.txt', EP, tokenizer)
     val_data = POSDataset(f'{EP.dataset_dir}/{EP.dataset_choice}_val.txt', EP, tokenizer)
     test_data = POSDataset(f'{EP.dataset_dir}/{EP.dataset_choice}_test.txt', EP, tokenizer)

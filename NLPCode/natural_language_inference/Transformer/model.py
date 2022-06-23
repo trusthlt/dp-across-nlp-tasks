@@ -11,7 +11,10 @@ class BERTNLIModel(nn.Module):
         self.EP = EP
         self.use_rnn = EP.use_rnn
 
-        self.bert = BertModel.from_pretrained(EP.bert_model_type)
+        if EP.use_BERT:
+            self.bert = BertModel.from_pretrained(EP.bert_model_type)
+        else:
+            self.bert = AutoModel.from_pretrained("microsoft/xtremedistil-l6-h384-uncased")
         
         # finetune bert
         if EP.tuning.training_bert == TrainingBERT.Freeze_Total:

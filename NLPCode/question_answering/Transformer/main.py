@@ -23,6 +23,7 @@ import time
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from utils import EarlyStopping, epoch_time
 from opacus import PrivacyEngine
+from transformers import AutoTokenizer
 
 def QA(EP):
     np.random.seed(EP.seed)
@@ -30,7 +31,10 @@ def QA(EP):
     torch.cuda.manual_seed_all(EP.seed)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    tokenizer = BertTokenizer.from_pretrained(EP.bert_model_type)
+    if EP.use_BERT:
+        tokenizer = BertTokenizer.from_pretrained(EP.bert_model_type)
+    else:
+        tokenizer = AutoTokenizer.from_pretrained("microsoft/xtremedistil-l6-h384-uncased")
     
     train_set, train_examples, train_features, val_set, val_examples, val_features, sample_rate = load_train_set(tokenizer, EP)
     test_set, test_examples, test_features = load_test_set(tokenizer, EP)

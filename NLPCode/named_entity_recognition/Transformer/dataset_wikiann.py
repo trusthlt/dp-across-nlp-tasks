@@ -26,7 +26,7 @@ seqlens: list of seqlens. [45, 49, 10, 50, ...]
 import numpy as np
 import torch
 from torch.utils import data
-from transformers import BertTokenizer
+from transformers import BertTokenizer, AutoTokenizer
 
 TAGS_wikiann = ('<PAD>', "O", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC")
 tag2idx = {tag: idx for idx, tag in enumerate(TAGS_wikiann)}
@@ -34,7 +34,10 @@ idx2tag = {idx: tag for idx, tag in enumerate(TAGS_wikiann)}
 
 class NerDatasetWikiann(data.Dataset):
     def __init__(self, fpath, EP):
-        self.tokenizer = BertTokenizer.from_pretrained(EP.bert_model_type, do_lower_case=False)
+        if EP.use_BERT:
+            self.tokenizer = BertTokenizer.from_pretrained(EP.bert_model_type, do_lower_case=False)
+        else:
+            self.tokenizer = AutoTokenizer.from_pretrained("microsoft/xtremedistil-l6-h384-uncased")
         """
         fpath: [train|valid|test].txt
         """

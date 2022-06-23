@@ -82,6 +82,9 @@ class ExperimentalParametersTransformers:
         # choice of dataset
         indx = args.index("--DS")
         self.dataset_choice = dataset_choice[args[indx + 1]]
+        # BERT or xtreemdistil BERT
+        indx = args.index("--BERT")
+        self.use_BERT = bool(int(args[indx + 1]))
        
 
         # Constant paramters     

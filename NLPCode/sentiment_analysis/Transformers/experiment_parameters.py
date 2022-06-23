@@ -82,6 +82,9 @@ class ExperimentalParametersTransformers:
         # early stopping
         indx = args.index("--ES")
         self.early_stopping_active = bool(int(args[indx + 1]))
+        # choose model
+        indx = args.index("--BERT")
+        self.use_BERT = bool(int(args[indx + 1]))   
        
 
         # Constant paramters     
