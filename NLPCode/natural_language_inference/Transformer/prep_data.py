@@ -25,7 +25,7 @@ def create_csv_with_tokens():
     f.write("in tokens\n")
     f.close()
 
-    prefix = '<path to datset>/' # ukp
+    prefix = '<path to datset>/'
     
     #load dataset
     df_train = pd.read_csv(prefix + 'snli_1.0/snli_1.0_train.txt', sep='\t')

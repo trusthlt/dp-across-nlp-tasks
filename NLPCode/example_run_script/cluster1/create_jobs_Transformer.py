@@ -63,7 +63,7 @@ for i in range(num_exp):
             f.write(f'#SBATCH --job-name={j_name[i]}\n')
             f.write(f'#SBATCH --output={output[i]}/out.txt\n')
             f.write(f'#SBATCH --error={output[i]}/error.txt\n')
-            #f.write('#SBATCH --mail-user=manuel.senge@stud.tu-darmstadt.de\n')
+            #f.write('#SBATCH --mail-user=<e-mail>\n')
             #f.write('#SBATCH --mail-type=ALL\n')
             f.write('#SBATCH --ntasks=1\n')
             f.write('#SBATCH --mem=32GB\n')
